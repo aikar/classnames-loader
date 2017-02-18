@@ -1,6 +1,6 @@
 {
   "name": "classnamesplus-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Alternate version of classnames Webpack loader, with merging of styles and global vs non global css modules. Original author: Anton Petrov <petrov.aap@gmail.com> (http://github.com/itsmepetrov)",
   "main": "index.js",
   "scripts": {
