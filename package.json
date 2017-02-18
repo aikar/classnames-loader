@@ -1,14 +1,14 @@
 {
-  "name": "classnames-loader",
-  "version": "2.0.0",
-  "description": "Webpack loader to automatically bind css-modules to classnames",
+  "name": "classnamesplus-loader",
+  "version": "1.0.0",
+  "description": "Alternate version of classnames Webpack loader, with merging of styles and global vs non global css modules. Original author: Anton Petrov <petrov.aap@gmail.com> (http://github.com/itsmepetrov)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itsmepetrov/classnames-loader.git"
+    "url": "git+https://github.com/aikar/classnamesplus-loader.git"
   },
   "keywords": [
     "webpack",
@@ -21,17 +21,16 @@
     "react",
     "bind"
   ],
-  "author": "Anton Petrov <petrov.aap@gmail.com> (http://github.com/itsmepetrov)",
+  "author": "Aikar <aikar@aikar.co>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/itsmepetrov/classnames-loader/issues"
+    "url": "https://github.com/aikar/classnamesplus-loader/issues"
   },
-  "homepage": "https://github.com/itsmepetrov/classnames-loader#readme",
+  "homepage": "https://github.com/aikar/classnamesplus-loader#readme",
   "dependencies": {
-    "loader-utils": "^0.2.11"
+    "object-assign": "^4.1.1"
   },
   "peerDependencies": {
     "classnames": "^2.2.0"
   }
 }
-

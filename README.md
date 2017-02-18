@@ -1,27 +1,37 @@
-# classnames-loader
+# classnamesplus-loader
 
-[![npm version](https://img.shields.io/npm/v/classnames-loader.svg?style=flat-square)](https://www.npmjs.com/package/classnames-loader)
+[![npm version](https://img.shields.io/npm/v/classnamesplus-loader.svg?style=flat-square)](https://www.npmjs.com/package/classnamesplus-loader)
 
 This is a webpack loader that automatically bind [css-modules](https://github.com/css-modules/css-modules) to [classnames](https://github.com/JedWatson/classnames).
 
-If you are using css-modules, or a similar approach to abstract class "names" and the real `className` values that are actually output to the DOM, you may want to use the [bind](https://github.com/JedWatson/classnames#alternate-bind-version-for-css-modules) variant of classnames module.
+This is a modified version of the original classnames-loader with changed behavior. I'm not sure my changes fit with the
+authors intent for classnames-loader as it does more than just classnames binding, so decided to fork and rename the project.
 
-Check out [this example](https://gist.github.com/itsmepetrov/7dbe519bb1332dd0f6c9) that shows the difference between `classNames`, `classNames/bind` and `classnames-loader`
+This module will bind exports to classnames, but also used with css-modules, will include the normal and module name so both are
+in the class list still (useful for automated tests where module based class names are not reliable)
+
+This version also provides a mergeStyles method. This will take 2 classnames instances, and combine the classnames.
+ 
+So if you have a base button stylesheet, and take that stylesheet and call .mergeStyles() with another stylesheet,
+the resulting stylesheet will have classes for both. See example below.
+ 
+This is primarily for taking presentational components, and letting the user of the component
+pass in an additional style object to extend the base one with, enabling overrides.
 
 ### Installation
 
 ```
-npm install --save-dev classnames-loader
+npm install --save-dev classnamesplus-loader
 ```
 
 ## Usage
 
-To enable this loader add `classnames` before `style` loader in webpack config: 
+To enable this loader add `classnamesplus-loader` before `style-loader` in webpack config: 
 
 ```js
 {
   test: /\.css$/,
-  loader: 'classnames!style!css')
+  loader: 'classnamesplus-loader!style-loader!css-loader')
 }
 ```
 
@@ -30,7 +40,7 @@ If you're using `ExtractTextPlugin` your webpack config should look like this:
 ```js
 {
   test: /\.css$/,
-  loaders: ['classnames', ExtractTextPlugin.extract('style', 'css')])
+  loaders: ['classnamesplus-loader', ExtractTextPlugin.extract('style-loader', 'css-loader')])
 }
 ```
 
@@ -38,7 +48,10 @@ Example usage in component:
 
 ```js
 import { Component } from 'react';
-import cx from './submit-button.css';
+import baseButton from '../buttons.css';
+import buttonStyles from './submit-button.css';
+const cx = baseButton.mergeStyles(buttonStyles); // styles now have base button classes, with buttonStyles appended after it
+// example: cx.base = BaseButton_base SubmitButton_base 
 
 export default class SubmitButton extends Component {
   render () {
@@ -68,8 +81,17 @@ export default class SubmitButton extends Component {
 }
 ```
 
-## Thanks
+Sadly, `babel-plugin-react-css-modules` does not appear to be using the combined class names for `styleName`.
+It appears it is due to that plugin resolving to the module imported directly, and not using the actual variable
+in scope.
 
+You will need to use `className={cx('base', 'button')}` syntax.
+
+To be honest, forcing that plugin to get the combined classes was a goal of this extension, but didn't work out as I had hoped.
+
+
+## Thanks
+[@itsmepetrov](https://github.com/itsmepetrov) for original [classnames-loader](https://github.com/itsmepetrov/classnames-loader)
 [@JedWatson](https://github.com/JedWatson) for [classnames](https://github.com/JedWatson/classnames) module
 
 ## License
