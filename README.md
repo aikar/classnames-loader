@@ -51,7 +51,7 @@ import { Component } from 'react';
 import baseButton from '../buttons.css';
 import buttonStyles from './submit-button.css';
 const cx = baseButton.mergeStyles(buttonStyles); // styles now have base button classes, with buttonStyles appended after it
-// example: cx.base = BaseButton_base SubmitButton_base 
+// example: cx.base = base BaseButton_base SubmitButton_base 
 
 export default class SubmitButton extends Component {
   render () {
