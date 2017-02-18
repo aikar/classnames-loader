@@ -24,6 +24,30 @@ pass in an additional style object to extend the base one with, enabling overrid
 npm install --save-dev classnamesplus-loader
 ```
 
+## API
+### mergeStyles
+```javascript
+import styles from "./styles.css";
+import styles1 from "../styles1.css";
+import styles2 from "../styles2.css";
+
+const newStyles = styles.mergeStyles(styles1, styles2);
+//styles.myStyle = myStyle styles_myStyle
+// newStyles.myStyle = myStyle styles_myStyle styles1_myStyle styles2_myStyle
+```
+
+### importStyles
+```javascript
+import styles from "./styles.css";
+import styles1 from "../styles1.css";
+import styles2 from "../styles2.css";
+
+styles.importStyles(styles1, styles2);
+
+// styles.myStyle = myStyle styles_myStyle styles1_myStyle styles2_myStyle
+```
+
+
 ## Usage
 
 To enable this loader add `classnamesplus-loader` before `style-loader` in webpack config: 
